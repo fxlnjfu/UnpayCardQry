@@ -1,9 +1,12 @@
 package util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -36,5 +39,17 @@ public class HttpUtil {
         httpGet.setConfig(requestConfig);
         httpGet.setProtocolVersion(HttpVersion.HTTP_1_1);
         return httpclient.execute(httpGet);
+    }
+
+    public static CloseableHttpResponse httpPost(String url,
+                                                 JSONObject jsonParam) throws IOException {
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setConfig(requestConfig);
+        httpPost.setProtocolVersion(HttpVersion.HTTP_1_1);
+        StringEntity entity = new StringEntity(jsonParam.toString(), "utf-8");// 解决中文乱码问题
+        entity.setContentEncoding("UTF-8");
+        entity.setContentType("application/json");
+        httpPost.setEntity(entity);
+        return httpclient.execute(httpPost);
     }
 }
