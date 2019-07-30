@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import request.GetCardInfoRequest;
 import request.GetTokenRequest;
+import result.GetTokenResult;
 
 
 /**
@@ -35,18 +36,20 @@ public class ConsumerApplication {
     @Bean
     public ApplicationRunner runner() {
         return args -> {
-//            GetTokenRequest getTokenRequest = new GetTokenRequest();
-//            getTokenRequest.setAppId("up_fc8kz34nzv31_6on4");
-//            getTokenRequest.setAppSecret("20d3d3a4b4ea2ed71a3c2d1aeb92f52c");
-//
-//            logger.info(iUnpayGetToken.getToken(getTokenRequest).toString());
+            //先获取token
+            GetTokenRequest getTokenRequest = new GetTokenRequest();
+            getTokenRequest.setAppId("up_fc8kz34nzv31_6on4");
+            getTokenRequest.setAppSecret("20d3d3a4b4ea2ed71a3c2d1aeb92f52c");
 
+            GetTokenResult getTokenResult = iUnpayGetToken.getToken(getTokenRequest);
+            logger.info(getTokenResult.toString());
+
+            //再获取银行卡信息
             GetCardInfoRequest getCardInfoRequest = new GetCardInfoRequest();
             getCardInfoRequest.setCardNo("6214830215395277");
-            getCardInfoRequest.setToken("t0PnUOufgPB1hLcWokQrjR5LZvnQb_J_Ec6hyHaxpZPAoB1OKv5nQ_R2STBCPnq-YIrwwD8THttw2t7GVjpkjcVg2IM3_NnlLDotrxbMS6fXGNzE3DDzkel11KOzNGpc");
+            getCardInfoRequest.setToken(getTokenResult.getToken());
 
             logger.info(iUnpayGetCardInfo.getCardInfo(getCardInfoRequest).toString());
-
 
         };
     }
