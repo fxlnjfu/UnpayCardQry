@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: dubbo-auto-configure-consumer-sample
-
-dubbo:
-  consumer:
-    timeout: 30000
