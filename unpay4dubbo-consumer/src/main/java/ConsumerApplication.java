@@ -1,3 +1,4 @@
+import api.IUnpayGetCardInfo;
 import api.IUnpayGetToken;
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
@@ -6,6 +7,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import request.GetCardInfoRequest;
 import request.GetTokenRequest;
 
 
@@ -23,6 +25,9 @@ public class ConsumerApplication {
     @Reference(version = "1.0.0", url = "dubbo://127.0.0.1:12345")
     private IUnpayGetToken iUnpayGetToken;
 
+    @Reference(version = "1.0.0", url = "dubbo://127.0.0.1:12345")
+    private IUnpayGetCardInfo iUnpayGetCardInfo;
+
     public static void main(String[] args) {
         SpringApplication.run(ConsumerApplication.class).close();
     }
@@ -30,11 +35,19 @@ public class ConsumerApplication {
     @Bean
     public ApplicationRunner runner() {
         return args -> {
-            GetTokenRequest getTokenRequest = new GetTokenRequest();
-            getTokenRequest.setAppId("up_fc8kz34nzv31_6on4");
-            getTokenRequest.setAppSecret("20d3d3a4b4ea2ed71a3c2d1aeb92f52c");
+//            GetTokenRequest getTokenRequest = new GetTokenRequest();
+//            getTokenRequest.setAppId("up_fc8kz34nzv31_6on4");
+//            getTokenRequest.setAppSecret("20d3d3a4b4ea2ed71a3c2d1aeb92f52c");
+//
+//            logger.info(iUnpayGetToken.getToken(getTokenRequest).toString());
 
-            logger.info(iUnpayGetToken.getToken(getTokenRequest).toString());
+            GetCardInfoRequest getCardInfoRequest = new GetCardInfoRequest();
+            getCardInfoRequest.setCardNo("6214830215395277");
+            getCardInfoRequest.setToken("t0PnUOufgPB1hLcWokQrjR5LZvnQb_J_Ec6hyHaxpZPAoB1OKv5nQ_R2STBCPnq-YIrwwD8THttw2t7GVjpkjcVg2IM3_NnlLDotrxbMS6fXGNzE3DDzkel11KOzNGpc");
+
+            logger.info(iUnpayGetCardInfo.getCardInfo(getCardInfoRequest).toString());
+
+
         };
     }
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class GetCardInfoResult implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String issNum;  //发卡行中文名称
+    private String issNm;  //发卡行中文名称
 
     private String issInsId;    //发卡行机构代码
 
@@ -87,12 +87,12 @@ public class GetCardInfoResult implements Serializable {
 
     private String hdqrsInsCnAbbr;  //所属总行机构中文简称
 
-    public String getIssNum() {
-        return issNum;
+    public String getIssNm() {
+        return issNm;
     }
 
-    public void setIssNum(String issNum) {
-        this.issNum = issNum;
+    public void setIssNm(String issNm) {
+        this.issNm = issNm;
     }
 
     public String getIssInsId() {
@@ -186,7 +186,7 @@ public class GetCardInfoResult implements Serializable {
     @Override
     public String toString() {
         return "GetCardInfoResult{" +
-                "issNum='" + issNum + '\'' +
+                "issNm='" + issNm + '\'' +
                 ", issInsId='" + issInsId + '\'' +
                 ", issAbbr='" + issAbbr + '\'' +
                 ", cardAttr='" + cardAttr + '\'' +
